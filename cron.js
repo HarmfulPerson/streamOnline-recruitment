@@ -1,3 +1,8 @@
+const MINUTE_MULTIPLIER = 60;
+const HOUR_MULTIPLIER = 60 * 60;
+const DAY_MULTIPLIER = 60 * 60 * 24;
+const WEEK_MULTIPLIER = 60 * 60 * 24 * 7;
+
 module.exports.oneTimeRun = (usersFunction, date) => {
     const currentDate = new Date().getTime();
     const inputDate = new Date(date).getTime();
@@ -8,11 +13,6 @@ module.exports.oneTimeRun = (usersFunction, date) => {
     const timeLeft = inputDate - currentDate;
     setTimeout(usersFunction, timeLeft);
 };
-
-const MINUTE_MULTIPLIER = 60;
-const HOUR_MULTIPLIER = 60 * 60;
-const DAY_MULTIPLIER = 60 * 60 * 24;
-const WEEK_MULTIPLIER = 60 * 60 * 24 * 7;
 
 const splitTimeValuesWithMultiplierIfNeeded = (timeValue, multiplier = 1) =>
     timeValue.includes("/") ? +(timeValue.split("/")[1] * multiplier) - 1 : 0;
