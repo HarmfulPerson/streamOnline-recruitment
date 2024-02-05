@@ -2,7 +2,7 @@
 
 Moduł składa się z dwóch funkcji:
 
-1.oneTimeRun - do wykonania funkcji o określonej porze.
+1.oneTimeRun - do wykonania funkcji o określonej porze.<br>
 oneTimeRun(usersFunction, date)
 usersFunction - jest to funkcja lub metoda funkcji którą chcemy wykonać
 date - jest to data w formatach:
