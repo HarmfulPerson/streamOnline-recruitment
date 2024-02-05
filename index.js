@@ -1,14 +1,25 @@
 const http = require("http");
 const { createIntervalCron } = require("./cronFunctions.js");
-
+const job1 = () => console.log("job executed");
 const server = http.createServer((req, res) => {
-    if (req.method === "GET" && req.url === "/test") {
+    if (req.method === "POST" && req.url === "/test") {
         res.writeHead(200, { "Content-Type": "text/plain" });
+        let data = "";
+        req.on("data", (chunk) => {
+            data += chunk;
+        });
 
-        const stopJob = createIntervalCron(job1, "* * * * * *");
-        res.end("ok");
+        req.on("end", () => {
+            const cron = JSON.parse(data || "{}").cron;
+            if (!cron) {
+                res.end("Invalid payload");
+            } else {
+                const stopJob = createIntervalCron(job1, cron);
+
+                res.end("ok");
+            }
+        });
     } else {
-        createIntervalCron(job2, "* * * * * *");
         res.writeHead(404, { "Content-Type": "text/plain" });
         res.end("Not Found");
     }

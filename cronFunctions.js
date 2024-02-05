@@ -18,8 +18,7 @@ module.exports.createIntervalCron = (job, cronExpression) => {
     const customCronProcess = fork("./cronProcess.js");
 
     const functionMap = new Map();
-    const dateToUniqueName = new Date();
-    const uniqueFunctionName = `${job.name}${dateToUniqueName}`;
+    const uniqueFunctionName = `${Math.random()}${job.name}`;
     functionMap.set(uniqueFunctionName, job);
 
     customCronProcess.send({
